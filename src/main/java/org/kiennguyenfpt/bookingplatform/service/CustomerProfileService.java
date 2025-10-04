@@ -4,7 +4,6 @@ import org.kiennguyenfpt.bookingplatform.dto.customer.CreateCustomerProfileReque
 import org.kiennguyenfpt.bookingplatform.dto.customer.CustomerProfileResponse;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.math.BigInteger;
 import java.util.List;
 
 public interface CustomerProfileService {

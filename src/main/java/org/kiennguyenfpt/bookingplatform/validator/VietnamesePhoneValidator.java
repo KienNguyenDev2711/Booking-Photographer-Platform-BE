@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintValidatorContext;
 
 public class VietnamesePhoneValidator implements ConstraintValidator<VietnamesePhone, String> {
 
-    private static final String PHONE_REGEX = "^(0|\\+84)(3|5|7|8|9)\\d{8}$";
+    private static final String PHONE_REGEX = "^(0|\\+84)[35789]\\d{8}$";
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {

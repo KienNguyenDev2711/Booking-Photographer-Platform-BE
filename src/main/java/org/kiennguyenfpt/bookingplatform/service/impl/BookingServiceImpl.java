@@ -100,12 +100,23 @@ public class BookingServiceImpl implements BookingService {
         booking.setEmail(request.getEmail());
         booking.setReasonReject(null);
 
-        // Logic commission rate
-        BigDecimal commissionRate = new BigDecimal("0.10"); // 10% cố định
-        BigDecimal adminAmount = booking.getTotalPayment().multiply(commissionRate);
-        BigDecimal photographerAmount = booking.getTotalPayment().subtract(adminAmount);
+        // Logic commission rate and amounts
+        BigDecimal totalPayment = booking.getTotalPayment();
+        BigDecimal commissionRate;
 
-        booking.setCommissionRate(commissionRate.multiply(BigDecimal.valueOf(100))); // lưu 10.00 (%)
+        if (totalPayment.compareTo(new BigDecimal("1000000")) < 0) {
+            commissionRate = new BigDecimal("0.30"); // 30%
+        } else if (totalPayment.compareTo(new BigDecimal("5000000")) < 0) {
+            commissionRate = new BigDecimal("0.20"); // 20%
+        } else {
+            commissionRate = new BigDecimal("0.15"); // 15%
+        }
+
+        BigDecimal adminAmount = totalPayment.multiply(commissionRate);
+        BigDecimal photographerAmount = totalPayment.subtract(adminAmount);
+
+        // Save follow %
+        booking.setCommissionRate(commissionRate.multiply(BigDecimal.valueOf(100)));
         booking.setAdminAmount(adminAmount);
         booking.setPhotographerAmount(photographerAmount);
 
